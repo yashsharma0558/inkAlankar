@@ -1,28 +1,17 @@
 package com.example.wedetect
 
-import android.app.Activity
 import android.content.ContentValues
-import android.content.Context
-import android.content.res.Resources
 import android.graphics.Bitmap
-import android.graphics.Paint
-import android.graphics.Path
-import android.hardware.camera2.params.BlackLevelPattern.COUNT
-import android.health.connect.datatypes.units.Length
 import android.net.Uri
 import android.os.Bundle
-import com.example.wedetect.PaintView
 import android.os.Environment
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.Navigation
-import com.example.wedetect.GameFragment.Companion.COUNT
+import androidx.fragment.app.Fragment
 import com.example.wedetect.databinding.FragmentGameBinding
-import com.example.wedetect.databinding.FragmentHomeBinding
 import java.io.OutputStream
 
 
@@ -31,16 +20,15 @@ class GameFragment : Fragment() {
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
     private var bitmapList = mutableListOf<Bitmap>()
+    private val valuesList = mutableListOf("ka", "kha", "ga", "gha")
     private var counter: Int = 0
-    private lateinit var paintView: PaintView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentGameBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,13 +37,13 @@ class GameFragment : Fragment() {
             resetCanvas()
         }
         //
+        binding.textView13.text = valuesList[counter]
 
-
-        binding.button3.setOnClickListener() {
+        binding.button3.setOnClickListener {
             if (binding.paintView.path.isEmpty) {
                 Toast.makeText(context, "Draw something dum dum", Toast.LENGTH_SHORT).show()
             } else {
-                if (binding.button3.text.equals("Submit")) {
+                if (binding.button3.text.equals(R.string.submit.toString())) {
                     bitmapList.forEach {
                         saveDrawingAsBitmap(it)
                     }
@@ -72,8 +60,10 @@ class GameFragment : Fragment() {
         val bitmap: Bitmap = binding.paintView.getBitmap()
         bitmapList.add(bitmap)
         counter++
+        binding.textView13.text = valuesList[counter]
         if (counter == COUNT) {
-            binding.button3.setText("Submit")
+            binding.button3.text = R.string.submit.toString()
+
         }
     }
 
@@ -84,7 +74,7 @@ class GameFragment : Fragment() {
     private fun saveDrawingAsBitmap(bitmap: Bitmap) {
 
 
-        var imageOutStream: OutputStream? = null
+        val imageOutStream: OutputStream?
         val cv = ContentValues()
         // Name of the file
         cv.put(MediaStore.Images.Media.DISPLAY_NAME, "drawing.png")
@@ -116,7 +106,7 @@ class GameFragment : Fragment() {
     }
 
     companion object {
-        val COUNT = 10
+        const val COUNT = 4
     }
 
 }

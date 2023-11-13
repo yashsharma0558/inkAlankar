@@ -5,14 +5,18 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.provider.ContactsContract.Data
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.inkAlankar.DataSource
 import androidx.fragment.app.Fragment
 import com.example.inkAlankar.databinding.FragmentGameBinding
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
 import java.io.OutputStream
 
 
@@ -31,6 +35,7 @@ class GameFragment : Fragment() {
         _binding = FragmentGameBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         //reset canvas
@@ -47,9 +52,18 @@ class GameFragment : Fragment() {
             } else {
                 if (binding.button3.text.equals("Submit")) {
                     saveBitmapInList()
-                    bitmapList.forEach {
-                        saveDrawingAsBitmap(it)
+                    val reference = Firebase.database.reference
+                    val initializedMap: MutableMap<String, Bitmap> = mutableMapOf()
+                    for (i in 0..<valuesList.size) {
+                        initializedMap[valuesList[i]] = bitmapList[i]
                     }
+                    for ((index, bitmap) in initializedMap) {
+                        // Upload each bitmap to Firebase Storage
+                        DataSource(reference).uploadBitmapToFirebaseStorage(bitmap, index)
+                    }
+//                    bitmapList.forEach {
+//                        saveDrawingAsBitmap(it)
+//                    }
                 } else {
                     saveBitmapInList()
                     updateWord()
@@ -61,12 +75,12 @@ class GameFragment : Fragment() {
 
     }
 
-    private fun updateWord(){
+    private fun updateWord() {
         counter++
         if (counter < valuesList.size) {
             binding.textView13.text = valuesList[counter]
         }
-        if (counter == COUNT-1) {
+        if (counter == COUNT - 1) {
             binding.button3.text = "Submit"
             Log.d("here", binding.button3.text.toString())
 

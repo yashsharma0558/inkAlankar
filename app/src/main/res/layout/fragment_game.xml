@@ -12,7 +12,7 @@
         android:id="@+id/relativeLayout"
         android:layout_width="286dp"
         android:layout_height="277dp"
-
+        android:background="@drawable/border"
         android:layout_marginTop="2dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -21,8 +21,7 @@
         <com.example.inkAlankar.PaintView
             android:id="@+id/paintView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/border" />
+            android:layout_height="match_parent" />
 
     </RelativeLayout>
 

@@ -1,17 +1,16 @@
 package com.example.inkAlankar
 
+import android.graphics.Bitmap
+import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.storage
+import java.io.ByteArrayOutputStream
 
 class DataSource(private var reference: DatabaseReference) {
-    var flag = false
     fun insertDataIntoDatabase(map: Map<String, String>): Boolean {
-//        if (!checkExistingDataInDatabase(map)) {
-//
-//            return false
-//        }
         reference.child(map.getValue("email")).setValue(map)
         return true
     }
@@ -70,6 +69,25 @@ class DataSource(private var reference: DatabaseReference) {
 
         })
     }
+
+    fun uploadBitmapToFirebaseStorage(bitmap: Bitmap, imageIndex: String) {
+        val storageReference = Firebase.storage.reference
+        val currentTimeMillis = System.currentTimeMillis()
+        val storageRef = storageReference.child("$imageIndex/$currentTimeMillis.png")
+
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        val data = baos.toByteArray()
+
+        val uploadTask = storageRef.putBytes(data)
+        uploadTask.addOnSuccessListener {
+            // Image uploaded successfully
+        }.addOnFailureListener {
+            // Handle unsuccessful uploads
+        }
+
+    }
+
 
 
 }

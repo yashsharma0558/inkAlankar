@@ -73,7 +73,7 @@ class DataSource(private var reference: DatabaseReference) {
     fun uploadBitmapToFirebaseStorage(bitmap: Bitmap, imageIndex: String) {
         val storageReference = Firebase.storage.reference
         val currentTimeMillis = System.currentTimeMillis()
-        val storageRef = storageReference.child("$imageIndex/$currentTimeMillis.png")
+        val storageRef = storageReference.child("$imageIndex/$imageIndex$currentTimeMillis.png")
 
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)

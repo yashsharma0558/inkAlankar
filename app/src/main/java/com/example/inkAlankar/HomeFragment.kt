@@ -26,8 +26,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.button5.setOnClickListener {
             val bundle  = Bundle()
-            bundle.putString("path", "fu7tf")
-            Navigation.findNavController(binding.root).navigate(R.id.action_homeFragment_to_profileFragment, bundle)
+            Navigation.findNavController(binding.root).navigate(R.id.action_homeFragment_to_loginFragment2, bundle)
         }
 
     }

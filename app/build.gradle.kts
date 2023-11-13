@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.wedetect"
+    namespace = "com.example.inkAlankar"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.wedetect"
+        applicationId = "com.example.inkAlankar"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -30,6 +30,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8

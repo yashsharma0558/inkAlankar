@@ -1,4 +1,4 @@
-package com.example.wedetect
+package com.example.inkAlankar
 
 import org.junit.Test
 

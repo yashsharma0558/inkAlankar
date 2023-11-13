@@ -1,4 +1,4 @@
-package com.example.wedetect
+package com.example.inkAlankar
 
 import android.content.ContentValues
 import android.graphics.Bitmap
@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.wedetect.databinding.FragmentGameBinding
+import com.example.inkAlankar.databinding.FragmentGameBinding
 import java.io.OutputStream
 
 
@@ -46,11 +46,13 @@ class GameFragment : Fragment() {
                 Toast.makeText(context, "Draw something dum dum", Toast.LENGTH_SHORT).show()
             } else {
                 if (binding.button3.text.equals("Submit")) {
+                    saveBitmapInList()
                     bitmapList.forEach {
                         saveDrawingAsBitmap(it)
                     }
                 } else {
                     saveBitmapInList()
+                    updateWord()
                     resetCanvas()
                 }
             }
@@ -59,9 +61,7 @@ class GameFragment : Fragment() {
 
     }
 
-    private fun saveBitmapInList() {
-        val bitmap: Bitmap = binding.paintView.getBitmap()
-        bitmapList.add(bitmap)
+    private fun updateWord(){
         counter++
         if (counter < valuesList.size) {
             binding.textView13.text = valuesList[counter]
@@ -73,14 +73,18 @@ class GameFragment : Fragment() {
         }
     }
 
+    private fun saveBitmapInList() {
+        val bitmap: Bitmap = binding.paintView.getBitmap()
+        bitmapList.add(bitmap)
+
+    }
+
     private fun resetCanvas() {
         binding.paintView.eraseCanvas()
     }
 
     private fun saveDrawingAsBitmap(bitmap: Bitmap) {
 
-        val bitmap: Bitmap = binding.paintView.getBitmap()
-        bitmapList.add(bitmap)
         val imageOutStream: OutputStream?
         val cv = ContentValues()
         // Name of the file

@@ -1,4 +1,4 @@
-package com.example.wedetect
+package com.example.inkAlankar
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,7 +9,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.wedetect.databinding.ActivityMainBinding
+import com.example.inkAlankar.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

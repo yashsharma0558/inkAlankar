@@ -1,4 +1,4 @@
-package com.example.wedetect
+package com.example.inkAlankar
 
 import android.content.Context
 import android.graphics.Bitmap

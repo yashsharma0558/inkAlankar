@@ -1,4 +1,4 @@
-package com.example.wedetect
+package com.example.inkAlankar
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
-import com.example.wedetect.databinding.FragmentHomeBinding
+import com.example.inkAlankar.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null

@@ -1,4 +1,4 @@
-package com.example.wedetect
+package com.example.inkAlankar
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
-import com.example.wedetect.databinding.FragmentLoginBinding
+import com.example.inkAlankar.databinding.FragmentLoginBinding
 import com.google.firebase.Firebase
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.database
@@ -42,13 +42,13 @@ class LoginFragment : Fragment() {
             if (checkEmptyFields) {
                 DataSource(reference).doesDataExist(
                     reference,
-                    binding.email.text?.trim().toString(),
+                    binding.email.text?.trim().toString().replace('.', ','),
                     binding.password.text?.trim().toString()
                 ) { dataExists ->
                     if (dataExists) {
                         // Data exists at the specified path
                         val bundle = Bundle()
-                        val path = binding.email.text?.trim().toString()
+                        val path = binding.email.text?.trim().toString().replace('.', ',')
                         bundle.putString("path", path)
 
                         Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_profileFragment, bundle)

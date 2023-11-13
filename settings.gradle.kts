@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "weDetect"
+rootProject.name = "inkAlankar"
 include(":app")
  

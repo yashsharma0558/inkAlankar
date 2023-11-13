@@ -7,21 +7,21 @@
 
     <fragment
         android:id="@+id/signupFragment"
-        android:name="com.example.wedetect.SignupFragment"
+        android:name="com.example.inkAlankar.SignupFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_signup" >
         <action
-            android:id="@+id/action_loginFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            android:id="@+id/action_signupFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
-        android:name="com.example.wedetect.GameFragment"
+        android:name="com.example.inkAlankar.GameFragment"
         android:label="fragment_game"
         tools:layout="@layout/fragment_game" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.wedetect.ProfileFragment"
+        android:name="com.example.inkAlankar.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.wedetect.HomeFragment"
+        android:name="com.example.inkAlankar.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.wedetect.LoginFragment"
+        android:name="com.example.inkAlankar.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action

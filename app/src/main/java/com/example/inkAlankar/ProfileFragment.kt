@@ -1,4 +1,4 @@
-package com.example.wedetect
+package com.example.inkAlankar
 
 import android.os.Bundle
 import android.util.Log
@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import com.example.wedetect.databinding.FragmentHomeBinding
-import com.example.wedetect.databinding.FragmentProfileBinding
+import com.example.inkAlankar.databinding.FragmentHomeBinding
+import com.example.inkAlankar.databinding.FragmentProfileBinding
 import com.google.firebase.Firebase
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.database

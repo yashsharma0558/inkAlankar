@@ -1,4 +1,4 @@
-package com.example.wedetect
+package com.example.inkAlankar
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
-import com.example.wedetect.databinding.FragmentHomeBinding
-import com.example.wedetect.databinding.FragmentSignupBinding
+import com.example.inkAlankar.databinding.FragmentHomeBinding
+import com.example.inkAlankar.databinding.FragmentSignupBinding
 import com.google.firebase.Firebase
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.database
-import com.example.wedetect.DataSource
+import com.example.inkAlankar.DataSource
 
 
 class SignupFragment : Fragment() {
@@ -42,13 +42,13 @@ class SignupFragment : Fragment() {
                     "branch" to binding.textView4.text.toString(),
                     "year" to binding.textView5.text.toString(),
                     "password" to binding.textView6.text.toString(),
-                    "email" to binding.textView7.text.toString()
+                    "email" to binding.textView7.text.toString().replace('.', ',')
                 )
                 val isInserted = DataSource(reference).insertDataIntoDatabase(map)
                 if(isInserted){
                     Toast.makeText(context, "SignedUp Successfully!!", Toast.LENGTH_SHORT).show()
                     Navigation.findNavController(binding.root)
-                        .navigate(R.id.action_loginFragment_to_profileFragment)
+                        .navigate(R.id.action_signupFragment_to_loginFragment)
                 }
                 else{
                     Toast.makeText(context, "Account already Exists!!", Toast.LENGTH_SHORT).show()

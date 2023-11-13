@@ -4,16 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ProfileFragment">
+    tools:context=".ProfileFragment"
+    android:background="@drawable/background">
 
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="60dp"
         android:layout_marginBottom="10dp"
-        android:textAlignment="center"
+        android:layout_gravity="start"
+        android:textColor="@color/white"
+        android:paddingEnd="20dp"
+        android:textAlignment="gravity"
+        android:paddingStart="20dp"
+        android:drawableRight="@drawable/profile_main"
         android:textSize="24sp"
         tools:text="Name" />
 
@@ -23,8 +29,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:textAlignment="center"
-        android:textSize="24sp"
+        android:layout_gravity="start"
+        android:textColor="@color/white"
+        android:textAlignment="gravity"
+        android:paddingStart="20dp"
+        android:textSize="16sp"
         tools:text="Phone Number" />
 
     <TextView
@@ -32,9 +41,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textAlignment="center"
+        android:layout_gravity="start"
+        android:textAlignment="gravity"
+        android:textColor="@color/white"
+        android:paddingStart="20dp"
         android:layout_marginBottom="10dp"
-        android:textSize="24sp"
+        android:textSize="16sp"
         tools:text="Number of Contributions" />
 
     <TextView
@@ -42,17 +54,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textAlignment="center"
+        android:layout_gravity="start"
+        android:textColor="@color/white"
+        android:textAlignment="gravity"
+        android:paddingStart="20dp"
         android:layout_marginBottom="10dp"
-        android:textSize="24sp"
+        android:textSize="16sp"
         tools:text="TextView" />
+
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:textSize="16dp"
+        android:backgroundTint="#171717"
+        android:layout_marginTop="200dp"
         android:layout_gravity="center"
         android:text="Start Contributing" />
+
+    <TextView
+        android:id="@+id/leaderboaard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#171717"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        tools:text="Leaderboard" />
 
 </LinearLayout>

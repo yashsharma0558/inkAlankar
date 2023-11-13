@@ -7,6 +7,8 @@
     <string name="next">Next</string>
     <string name="reset">Reset</string>
     <string name="drawAlphabetGF">Draw the hindi alphabet shown below:</string>
+    <string name="phone_no_SF">Phone No.</string>
+    <string name="name_SF">Name</string>
 
 
 </resources>

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "269228805886",
+    "firebase_url": "https://inkalankar-default-rtdb.firebaseio.com",
+    "project_id": "inkalankar",
+    "storage_bucket": "inkalankar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269228805886:android:b128f360e3fa87f9f51faf",
+        "android_client_info": {
+          "package_name": "com.example.wedetect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuZHVkRhm-Nr-Rmb_TzO015DvvIaCjM0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,25 +31,27 @@ class GameFragment : Fragment() {
         _binding = FragmentGameBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         //reset canvas
         binding.button4.setOnClickListener {
             resetCanvas()
         }
-        //
+        //change button text to valueList's first object
         binding.textView13.text = valuesList[counter]
 
+        //save bitmap in list
         binding.button3.setOnClickListener {
             if (binding.paintView.path.isEmpty) {
                 Toast.makeText(context, "Draw something dum dum", Toast.LENGTH_SHORT).show()
             } else {
-                if (binding.button3.text.equals(R.string.submit.toString())) {
+                if (binding.button3.text.equals("Submit")) {
                     bitmapList.forEach {
                         saveDrawingAsBitmap(it)
                     }
                 } else {
                     saveBitmapInList()
+                    resetCanvas()
                 }
             }
         }
@@ -60,9 +63,12 @@ class GameFragment : Fragment() {
         val bitmap: Bitmap = binding.paintView.getBitmap()
         bitmapList.add(bitmap)
         counter++
-        binding.textView13.text = valuesList[counter]
-        if (counter == COUNT) {
-            binding.button3.text = R.string.submit.toString()
+        if (counter < valuesList.size) {
+            binding.textView13.text = valuesList[counter]
+        }
+        if (counter == COUNT-1) {
+            binding.button3.text = "Submit"
+            Log.d("here", binding.button3.text.toString())
 
         }
     }
@@ -73,7 +79,8 @@ class GameFragment : Fragment() {
 
     private fun saveDrawingAsBitmap(bitmap: Bitmap) {
 
-
+        val bitmap: Bitmap = binding.paintView.getBitmap()
+        bitmapList.add(bitmap)
         val imageOutStream: OutputStream?
         val cv = ContentValues()
         // Name of the file

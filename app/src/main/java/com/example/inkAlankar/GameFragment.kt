@@ -1,6 +1,9 @@
 package com.example.inkAlankar
 
+import android.app.AlertDialog
 import android.content.ContentValues
+import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -14,7 +17,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.inkAlankar.DataSource
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.inkAlankar.databinding.FragmentGameBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
 import java.io.OutputStream
@@ -27,6 +33,15 @@ class GameFragment : Fragment() {
     private var bitmapList = mutableListOf<Bitmap>()
     private val valuesList = mutableListOf("ka", "kha", "ga", "gha")
     private var counter: Int = 0
+    private lateinit var path: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        arguments?.let {
+            path = it.getString("path") as String
+        }
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,15 +67,19 @@ class GameFragment : Fragment() {
             } else {
                 if (binding.button3.text.equals("Submit")) {
                     saveBitmapInList()
-                    val reference = Firebase.database.reference
+                    val reference = Firebase.database.reference.child("acc")
                     val initializedMap: MutableMap<String, Bitmap> = mutableMapOf()
                     for (i in 0..<valuesList.size) {
                         initializedMap[valuesList[i]] = bitmapList[i]
                     }
                     for ((index, bitmap) in initializedMap) {
                         // Upload each bitmap to Firebase Storage
-                        DataSource(reference).uploadBitmapToFirebaseStorage(bitmap, index)
+                        DataSource(reference).uploadBitmapToFirebaseStorage(bitmap, index, path)
+
+//                        showFinalScoreDialog()
                     }
+                    Toast.makeText(context, "Successfully Submitted!", Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
 //                    bitmapList.forEach {
 //                        saveDrawingAsBitmap(it)
 //                    }
@@ -74,6 +93,30 @@ class GameFragment : Fragment() {
 
 
     }
+
+//    private fun showFinalScoreDialog() {
+//        val dialog = MaterialAlertDialogBuilder(requireContext())
+//            .setTitle("congrats")
+//            .setMessage("Material Dialog Message")
+//            .setPositiveButton("restart") { dialog, _ ->
+//                // Handle positive button click if needed
+//                reinitalize()
+//                dialog.dismiss()
+//            }
+//            .setNegativeButton("Cancel") { dialog, _ ->
+//                // Handle negative button click if needed
+//                dialog.dismiss()
+//
+//            }
+//        dialog.create().show()
+//    }
+
+
+//    private fun reinitalize() {
+//        counter = 0
+//        bitmapList.clear()
+//        Navigation.findNavController(binding.root).navigate(R.id.action_gameFragment_self)
+//    }
 
     private fun updateWord() {
         counter++
@@ -97,33 +140,33 @@ class GameFragment : Fragment() {
         binding.paintView.eraseCanvas()
     }
 
-    private fun saveDrawingAsBitmap(bitmap: Bitmap) {
-
-        val imageOutStream: OutputStream?
-        val cv = ContentValues()
-        // Name of the file
-        cv.put(MediaStore.Images.Media.DISPLAY_NAME, "drawing.png")
-        // Type of the file
-        cv.put(MediaStore.Images.Media.MIME_TYPE, "image/png")
-        // Location of the file to be saved
-        cv.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-        // Get the Uri of the file which is to be created in the storage
-        val uri: Uri? =
-            context?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv)
-        try {
-            // Open the output stream with the above uri
-            imageOutStream = context?.contentResolver?.openOutputStream(uri!!)
-            // This method writes the files in storage
-            if (imageOutStream != null) {
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, imageOutStream)
-            }
-            // Close the output stream after use
-            imageOutStream?.close()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-    }
+//    private fun saveDrawingAsBitmap(bitmap: Bitmap) {
+//
+//        val imageOutStream: OutputStream?
+//        val cv = ContentValues()
+//        // Name of the file
+//        cv.put(MediaStore.Images.Media.DISPLAY_NAME, "drawing.png")
+//        // Type of the file
+//        cv.put(MediaStore.Images.Media.MIME_TYPE, "image/png")
+//        // Location of the file to be saved
+//        cv.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+//        // Get the Uri of the file which is to be created in the storage
+//        val uri: Uri? =
+//            context?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv)
+//        try {
+//            // Open the output stream with the above uri
+//            imageOutStream = context?.contentResolver?.openOutputStream(uri!!)
+//            // This method writes the files in storage
+//            if (imageOutStream != null) {
+//                bitmap.compress(Bitmap.CompressFormat.PNG, 100, imageOutStream)
+//            }
+//            // Close the output stream after use
+//            imageOutStream?.close()
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+//
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

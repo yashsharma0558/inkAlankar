@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.example.inkAlankar.databinding.FragmentHomeBinding
 import com.example.inkAlankar.databinding.FragmentProfileBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.database
@@ -43,18 +44,33 @@ class ProfileFragment : Fragment() {
             initializeValues(it)
         }
 
-
-        binding.button2.setOnClickListener(){
-            Navigation.findNavController(binding.root).navigate(R.id.action_profileFragment_to_gameFragment)
+        binding.button2.setOnClickListener{
+//            createAlertDialog()
+            val bundle = Bundle()
+            bundle.putString("path", path)
+            Navigation.findNavController(binding.root).navigate(R.id.action_profileFragment_to_gameFragment, bundle)
 
         }
 
+
+    }
+
+    private fun createAlertDialog() {
+        val item = arrayOf("i agree")
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Alert!")
+            .setMessage("chup kr saale").setItems(item){ _, _->
+
+
+            }
+            .setPositiveButton("yes"){ dialog, _ ->
+
+            }.setNegativeButton("no"){  _, _ ->
+
+            }
     }
 
     private fun initializeValues(map: Map<String, Any>) {
-        println(map["name"].toString())
-        println(map["email"].toString())
-        println(map["phoneNo"].toString())
         binding.textView8.text = map["name"].toString()
         binding.textView9.text = map["email"].toString()
         binding.textView10.text = map["phoneNo"].toString()

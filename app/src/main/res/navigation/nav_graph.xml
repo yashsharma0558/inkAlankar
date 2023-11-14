@@ -14,11 +14,28 @@
             android:id="@+id/action_signupFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/dialogFragment"-->
+<!--        android:name="com.example.inkAlankar.DialogFragment"-->
+<!--        android:label="dialog_Fragment">-->
+<!--    </fragment>-->
     <fragment
         android:id="@+id/gameFragment"
         android:name="com.example.inkAlankar.GameFragment"
         android:label="fragment_game"
-        tools:layout="@layout/fragment_game" />
+        tools:layout="@layout/fragment_game" >
+<!--        <action-->
+<!--            android:id="@+id/action_gameFragment_to_dialogFragment"-->
+<!--            app:destination="@id/dialogFragment" />-->
+        <action
+            android:id="@+id/action_gameFragment_self"
+            app:destination="@id/gameFragment" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+
+    </fragment>
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.inkAlankar.ProfileFragment"
@@ -28,6 +45,7 @@
             android:id="@+id/action_profileFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.inkAlankar.HomeFragment"

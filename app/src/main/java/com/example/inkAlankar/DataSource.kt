@@ -6,6 +6,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.getValue
+import com.google.firebase.database.values
 import com.google.firebase.storage.storage
 import java.io.ByteArrayOutputStream
 
@@ -70,7 +72,26 @@ class DataSource(private var reference: DatabaseReference) {
         })
     }
 
-    fun uploadBitmapToFirebaseStorage(bitmap: Bitmap, imageIndex: String) {
+    fun getFieldFromDatabase(path: String, field: String, callback: (String) -> Unit) {
+        reference.child(path).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val result = snapshot.child(field).value as String
+                    callback.invoke(result)
+                } else {
+                    callback.invoke("")
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+    fun uploadBitmapToFirebaseStorage(bitmap: Bitmap, imageIndex: String, path : String) {
         val storageReference = Firebase.storage.reference
         val currentTimeMillis = System.currentTimeMillis()
         val storageRef = storageReference.child("$imageIndex/$imageIndex$currentTimeMillis.png")
@@ -84,6 +105,11 @@ class DataSource(private var reference: DatabaseReference) {
             // Image uploaded successfully
         }.addOnFailureListener {
             // Handle unsuccessful uploads
+        }
+        getFieldFromDatabase(path, "contributions"){
+            val no = it.toInt()
+            reference.child(path).child("contributions").setValue(no+1)
+
         }
 
     }

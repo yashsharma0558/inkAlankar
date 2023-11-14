@@ -5,6 +5,8 @@
     <string name="loginFragment_uid">Enter User ID</string>
     <string name="submit">Submit</string>
     <string name="next">Next</string>
+    <string name="titleGF">Congratulations ! !</string>
+    <string name="messageGF">Thank you for investing your precious time in helping us build our data model\nYour Contribution is valued and appreciated.\nWould you like to restart and contribute again?</string>
     <string name="reset">Reset</string>
     <string name="drawAlphabetGF">Draw the hindi alphabet shown below:</string>
     <string name="phone_no_SF">Phone No.</string>

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
 import android.provider.ContactsContract.Data
@@ -31,7 +32,88 @@ class GameFragment : Fragment() {
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
     private var bitmapList = mutableListOf<Bitmap>()
-    private val valuesList = mutableListOf("ka", "kha", "ga", "gha")
+    private val valuesList = mutableListOf(
+        "क (ka)",
+        "ख (kha)",
+        "ग (ga)",
+        "घ (gha)",
+        "ङ (nga)",
+        "च (cha)",
+        "छ (chha)",
+        "ज (ja)",
+        "झ (jha)",
+        "ञ (nya)",
+        "ट (ṭa)",
+        "ठ (ṭha)",
+        "ड (ḍa)",
+        "ढ (ḍha)",
+        "ण (ṇa)",
+        "त (ta)",
+        "थ (tha)",
+        "द (da)",
+        "ध (dha)",
+        "न (na)",
+        "प (pa)",
+        "फ (pha)",
+        "ब (ba)",
+        "भ (bha)",
+        "म (ma)",
+        "य (ya)",
+        "र (ra)",
+        "ल (la)",
+        "व (va)",
+        "श (sha)",
+        "ष (ṣa)",
+        "स (sa)",
+        "ह (ha)",
+        "ष (ṣa)",
+        "त्र (tra)",
+        "क्‍ (adha k)",
+        "ख्‍ (adha kha)",
+        "ग्‍ (adha ga)",
+        "घ्‍ (adha gha)",
+        "च्‍ (adha cha)",
+        "छ्‍(adha jh)",
+        "ज्‍ (adha nya)",
+        "झ्‍ (adha jh)",
+        "ञ्‍ (adha jh)",
+        "त्‍ (adha ta)",
+        "थ्‍ (adha tha)",
+        "द् (adha da)",
+        "ध्‍ (adha dha)",
+        "न्‍ (adha na)",
+        "प्‍ (adha pa)",
+        "फ्‍ (adha fa)",
+        "ब्‍  (adha ba)",
+        "भ्‍  (adha bha)",
+        "म्‍. (adha m)",
+        "य्‍. (adha ya)",
+        "ल्‍. (adha la)",
+        "व्‍  (adha va)",
+        "श्‍. (adha sh)",
+        "ष्‍. (adha sha)",
+        "स्‍. (adha sa)",
+        "ह्‍ (adha ha)",
+        "\\",
+        "forward slash",
+        ".",
+        ":",
+        "(ँ)",
+        "ो (o)",
+        "ौ (au)",
+        "अ (a)",
+        "इ (i)",
+        "उ (u)",
+        "ऊ (uu)",
+        "ऐ (ae)",
+        "ा (a)",
+        "ू (bada u)",
+        "ि (i)",
+        "ी (ii)",
+        "ु (chota u)",
+        "े (e)",
+        "ै (ai)"
+    )
     private var counter: Int = 0
     private lateinit var path: String
 
@@ -62,27 +144,46 @@ class GameFragment : Fragment() {
 
         //save bitmap in list
         binding.button3.setOnClickListener {
-            if (binding.paintView.path.isEmpty) {
+            if (!binding.paintView.path.isEmpty) {
                 Toast.makeText(context, "Draw something dum dum", Toast.LENGTH_SHORT).show()
             } else {
                 if (binding.button3.text.equals("Submit")) {
                     saveBitmapInList()
+//                    OperationAsyncTask().execute()
+                    binding.progressBar.visibility = View.VISIBLE
                     val reference = Firebase.database.reference.child("acc")
+                    Log.d("maplength", valuesList.size.toString())
+                    Log.d("maplength", bitmapList.size.toString())
                     val initializedMap: MutableMap<String, Bitmap> = mutableMapOf()
-                    for (i in 0..<valuesList.size) {
-                        initializedMap[valuesList[i]] = bitmapList[i]
+                    var count = 0
+                    for ((index, value) in bitmapList.withIndex()) {
+                        initializedMap[valuesList[index]] = value
+                        Log.d("maplength", valuesList[index])
+
                     }
+                    Log.d("maplength", initializedMap.size.toString())
                     for ((index, bitmap) in initializedMap) {
                         // Upload each bitmap to Firebase Storage
-                        DataSource(reference).uploadBitmapToFirebaseStorage(bitmap, index, path)
+                        DataSource(reference).uploadBitmapToFirebaseStorage(bitmap, index, path) {
+                            if (it == 1) {
+                                count++
+                            }
+                            Log.d("counter", count.toString())
+                            binding.progressBar.setProgress(count, true)
+                            if (count == 79) {
+                                binding.progressBar.visibility = View.GONE
+                                Toast.makeText(context, "Successfully Submitted!", Toast.LENGTH_SHORT)
+                                    .show()
+                                findNavController().popBackStack()
+                            }
+
+                        }
+
 
 //                        showFinalScoreDialog()
                     }
-                    Toast.makeText(context, "Successfully Submitted!", Toast.LENGTH_SHORT).show()
-                    findNavController().popBackStack()
-//                    bitmapList.forEach {
-//                        saveDrawingAsBitmap(it)
-//                    }
+
+
                 } else {
                     saveBitmapInList()
                     updateWord()
@@ -94,38 +195,18 @@ class GameFragment : Fragment() {
 
     }
 
-//    private fun showFinalScoreDialog() {
-//        val dialog = MaterialAlertDialogBuilder(requireContext())
-//            .setTitle("congrats")
-//            .setMessage("Material Dialog Message")
-//            .setPositiveButton("restart") { dialog, _ ->
-//                // Handle positive button click if needed
-//                reinitalize()
-//                dialog.dismiss()
-//            }
-//            .setNegativeButton("Cancel") { dialog, _ ->
-//                // Handle negative button click if needed
-//                dialog.dismiss()
-//
-//            }
-//        dialog.create().show()
-//    }
-
-
-//    private fun reinitalize() {
-//        counter = 0
-//        bitmapList.clear()
-//        Navigation.findNavController(binding.root).navigate(R.id.action_gameFragment_self)
-//    }
 
     private fun updateWord() {
         counter++
         if (counter < valuesList.size) {
             binding.textView13.text = valuesList[counter]
         }
+//        if (counter < COUNT) {
+//            binding.textView13.text = valuesList[counter]
+//        }
         if (counter == COUNT - 1) {
             binding.button3.text = "Submit"
-            Log.d("here", binding.button3.text.toString())
+//            Log.d("here", binding.button3.text.toString())
 
         }
     }
@@ -140,33 +221,6 @@ class GameFragment : Fragment() {
         binding.paintView.eraseCanvas()
     }
 
-//    private fun saveDrawingAsBitmap(bitmap: Bitmap) {
-//
-//        val imageOutStream: OutputStream?
-//        val cv = ContentValues()
-//        // Name of the file
-//        cv.put(MediaStore.Images.Media.DISPLAY_NAME, "drawing.png")
-//        // Type of the file
-//        cv.put(MediaStore.Images.Media.MIME_TYPE, "image/png")
-//        // Location of the file to be saved
-//        cv.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-//        // Get the Uri of the file which is to be created in the storage
-//        val uri: Uri? =
-//            context?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv)
-//        try {
-//            // Open the output stream with the above uri
-//            imageOutStream = context?.contentResolver?.openOutputStream(uri!!)
-//            // This method writes the files in storage
-//            if (imageOutStream != null) {
-//                bitmap.compress(Bitmap.CompressFormat.PNG, 100, imageOutStream)
-//            }
-//            // Close the output stream after use
-//            imageOutStream?.close()
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
-//
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -174,7 +228,8 @@ class GameFragment : Fragment() {
     }
 
     companion object {
-        const val COUNT = 4
+        const val COUNT = 80
     }
+
 
 }

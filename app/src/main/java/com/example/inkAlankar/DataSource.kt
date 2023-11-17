@@ -1,6 +1,7 @@
 package com.example.inkAlankar
 
 import android.graphics.Bitmap
+import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -11,7 +12,7 @@ import com.google.firebase.database.values
 import com.google.firebase.storage.storage
 import java.io.ByteArrayOutputStream
 
-class DataSource(private var reference: DatabaseReference) {
+class DataSource(private val reference: DatabaseReference) {
     fun insertDataIntoDatabase(map: Map<String, String>): Boolean {
         reference.child(map.getValue("email")).setValue(map)
         return true
@@ -72,11 +73,11 @@ class DataSource(private var reference: DatabaseReference) {
         })
     }
 
-    fun getFieldFromDatabase(path: String, field: String, callback: (String) -> Unit) {
+    private fun getFieldFromDatabase(path: String, field: String, callback: (String) -> Unit) {
         reference.child(path).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    val result = snapshot.child(field).value as String
+                    val result = snapshot.child(field).value.toString()
                     callback.invoke(result)
                 } else {
                     callback.invoke("")
@@ -91,7 +92,7 @@ class DataSource(private var reference: DatabaseReference) {
         })
     }
 
-    fun uploadBitmapToFirebaseStorage(bitmap: Bitmap, imageIndex: String, path : String) {
+    fun uploadBitmapToFirebaseStorage(bitmap: Bitmap, imageIndex: String, path : String, callback: (Int) -> Unit) {
         val storageReference = Firebase.storage.reference
         val currentTimeMillis = System.currentTimeMillis()
         val storageRef = storageReference.child("$imageIndex/$imageIndex$currentTimeMillis.png")
@@ -101,16 +102,20 @@ class DataSource(private var reference: DatabaseReference) {
         val data = baos.toByteArray()
 
         val uploadTask = storageRef.putBytes(data)
-        uploadTask.addOnSuccessListener {
-            // Image uploaded successfully
-        }.addOnFailureListener {
-            // Handle unsuccessful uploads
-        }
         getFieldFromDatabase(path, "contributions"){
             val no = it.toInt()
             reference.child(path).child("contributions").setValue(no+1)
 
         }
+        uploadTask.addOnSuccessListener {
+            // Image uploaded successfully
+            callback.invoke(1)
+        }.addOnFailureListener {
+            // Handle unsuccessful uploads
+            Log.d("unsuccessful!", imageIndex)
+            callback.invoke(1)
+        }
+
 
     }
 

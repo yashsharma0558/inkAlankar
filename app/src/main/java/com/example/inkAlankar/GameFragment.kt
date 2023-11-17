@@ -144,7 +144,7 @@ class GameFragment : Fragment() {
 
         //save bitmap in list
         binding.button3.setOnClickListener {
-            if (!binding.paintView.path.isEmpty) {
+            if (binding.paintView.path.isEmpty) {
                 Toast.makeText(context, "Draw something dum dum", Toast.LENGTH_SHORT).show()
             } else {
                 if (binding.button3.text.equals("Submit")) {

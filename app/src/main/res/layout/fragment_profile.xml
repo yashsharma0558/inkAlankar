@@ -34,7 +34,7 @@
         android:textAlignment="gravity"
         android:paddingStart="20dp"
         android:textSize="16sp"
-        tools:text="Phone Number" />
+        tools:text="Email" />
 
     <TextView
         android:id="@+id/textView10"
@@ -47,20 +47,7 @@
         android:paddingStart="20dp"
         android:layout_marginBottom="10dp"
         android:textSize="16sp"
-        tools:text="Number of Contributions" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="start"
-        android:textColor="@color/white"
-        android:textAlignment="gravity"
-        android:paddingStart="20dp"
-        android:layout_marginBottom="10dp"
-        android:textSize="16sp"
-        tools:text="TextView" />
+        tools:text="Contributions" />
 
 
     <Button
@@ -80,10 +67,132 @@
         android:textStyle="bold"
         android:textColor="#171717"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginBottom="10dp"
         android:textAlignment="center"
         android:textSize="24sp"
         tools:text="Leaderboard" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="*"
+        android:padding="16dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:text="Rank" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="174dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:text="Contributor" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:text="Contributions" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/imageRow1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/gold_crown" />
+
+            <TextView
+                android:id="@+id/emailRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                tools:text="email1" />
+
+            <TextView
+                android:id="@+id/contributionRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="contribution1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/imageRow2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/silver_crown" />
+
+            <TextView
+                android:id="@+id/emailRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                tools:text="email2" />
+
+            <TextView
+                android:id="@+id/contributionRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="contribution2" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/imageRow3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/bronze_crown" />
+
+            <TextView
+                android:id="@+id/emailRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                tools:text="email3" />
+
+            <TextView
+                android:id="@+id/contributionRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="contribution3" />
+        </TableRow>
+    </TableLayout>
 
 </LinearLayout>

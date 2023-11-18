@@ -72,8 +72,8 @@ class ProfileFragment : Fragment() {
 
     private fun initializeValues(map: Map<String, Any>) {
         binding.textView8.text = map["name"].toString()
-        binding.textView9.text = map["email"].toString()
-        binding.textView10.text = map["phoneNo"].toString()
+        binding.textView9.text = map["email"].toString().replace(',', '.')
+        binding.textView10.text = map["contributions"].toString()
     }
 
     override fun onDestroyView() {

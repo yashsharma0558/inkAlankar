@@ -15,6 +15,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import com.example.inkAlankar.DataSource
 import androidx.fragment.app.Fragment
@@ -149,38 +151,27 @@ class GameFragment : Fragment() {
             } else {
                 if (binding.button3.text.equals("Submit")) {
                     saveBitmapInList()
-//                    OperationAsyncTask().execute()
-                    binding.progressBar.visibility = View.VISIBLE
+                    showOverlay()
                     val reference = Firebase.database.reference.child("acc")
-                    Log.d("maplength", valuesList.size.toString())
-                    Log.d("maplength", bitmapList.size.toString())
                     val initializedMap: MutableMap<String, Bitmap> = mutableMapOf()
                     var count = 0
                     for ((index, value) in bitmapList.withIndex()) {
                         initializedMap[valuesList[index]] = value
-                        Log.d("maplength", valuesList[index])
 
                     }
-                    Log.d("maplength", initializedMap.size.toString())
                     for ((index, bitmap) in initializedMap) {
                         // Upload each bitmap to Firebase Storage
                         DataSource(reference).uploadBitmapToFirebaseStorage(bitmap, index, path) {
                             if (it == 1) {
                                 count++
                             }
-                            Log.d("counter", count.toString())
                             binding.progressBar.setProgress(count, true)
                             if (count == 79) {
-                                binding.progressBar.visibility = View.GONE
-                                Toast.makeText(context, "Successfully Submitted!", Toast.LENGTH_SHORT)
-                                    .show()
-                                findNavController().popBackStack()
+                                hideOverlay()
                             }
 
                         }
 
-
-//                        showFinalScoreDialog()
                     }
 
 
@@ -194,19 +185,30 @@ class GameFragment : Fragment() {
 
 
     }
+    private fun showOverlay() {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.overlayBackground.visibility = View.VISIBLE
+        // Disable user interactions if needed
+        activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+    }
 
+    private fun hideOverlay() {
+        binding.progressBar.visibility = View.GONE
+        binding.overlayBackground.visibility = View.GONE
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        Toast.makeText(context, "Successfully Submitted!", Toast.LENGTH_SHORT)
+            .show()
+        findNavController().popBackStack()
+    }
 
     private fun updateWord() {
         counter++
         if (counter < valuesList.size) {
             binding.textView13.text = valuesList[counter]
         }
-//        if (counter < COUNT) {
-//            binding.textView13.text = valuesList[counter]
-//        }
         if (counter == COUNT - 1) {
-            binding.button3.text = "Submit"
-//            Log.d("here", binding.button3.text.toString())
+            binding.button3.text = getString(R.string.submit)
 
         }
     }

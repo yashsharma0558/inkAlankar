@@ -120,5 +120,35 @@ class DataSource(private val reference: DatabaseReference) {
     }
 
 
+    fun getTop3ChildrenWithMaxNumber(callback: (Map<String, Int>) -> Unit) {
+        val query = reference.orderByChild("contributions").limitToLast(3)
+
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    val map: HashMap<String, Int> = hashMapOf()
+                    // Iterate through the top 3 children
+                    for (childSnapshot in dataSnapshot.children) {
+                        val numberValue = childSnapshot.child("contributions").getValue(Int::class.java)
+                        val emailValue = childSnapshot.child("email").getValue(String::class.java)
+                        if (numberValue != null && emailValue != null) {
+                            map[emailValue] = numberValue
+                        }
+//                        Log.d("Firebase", "Number: $numberValue")
+                    }
+                    val result = map.toList().sortedByDescending { (_, value) -> value}.toMap()
+                    callback.invoke(result)
+                } else {
+                    Log.d("Firebase", "No data found")
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.e("Firebase", "Error: ${databaseError.message}")
+            }
+        })
+    }
+
+
 
 }

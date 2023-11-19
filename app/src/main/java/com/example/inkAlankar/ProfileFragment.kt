@@ -40,8 +40,11 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         reference = Firebase.database.reference.child("acc")
+        DataSource(reference).getTop3ChildrenWithMaxNumber{
+            initializeTop3Values(it)
+        }
         DataSource(reference).getLoginDataFromDatabase(path){
-            initializeValues(it)
+            initializeProfileValues(it)
         }
 
         binding.button2.setOnClickListener{
@@ -53,6 +56,16 @@ class ProfileFragment : Fragment() {
         }
 
 
+    }
+
+    private fun initializeTop3Values(map: Map<String, Any>) {
+
+        binding.emailRow1.text = map.keys.elementAt(0).replace(',', '.')
+        binding.emailRow2.text = map.keys.elementAt(1).replace(',', '.')
+        binding.emailRow3.text = map.keys.elementAt(2).replace(',', '.')
+        binding.contributionRow1.text = map.values.elementAt(0).toString()
+        binding.contributionRow2.text = map.values.elementAt(1).toString()
+        binding.contributionRow3.text = map.values.elementAt(2).toString()
     }
 
     private fun createAlertDialog() {
@@ -70,10 +83,11 @@ class ProfileFragment : Fragment() {
             }
     }
 
-    private fun initializeValues(map: Map<String, Any>) {
+    private fun initializeProfileValues(map: Map<String, Any>) {
         binding.textView8.text = map["name"].toString()
         binding.textView9.text = map["email"].toString().replace(',', '.')
-        binding.textView10.text = map["contributions"].toString()
+        binding.textView10.text = getString(R.string.contributions, map["contributions"].toString())
+
     }
 
     override fun onDestroyView() {

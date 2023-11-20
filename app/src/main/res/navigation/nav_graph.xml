@@ -54,7 +54,10 @@
         <action
             android:id="@+id/action_homeFragment_to_loginFragment2"
             app:destination="@id/loginFragment" />
-<!--        <action-->
+        <action
+            android:id="@+id/action_homeFragment_to_devsFragment"
+            app:destination="@id/devsFragment" />
+        <!--        <action-->
 <!--            android:id="@+id/action_homeFragment_to_profileFragment"-->
 <!--            app:destination="@id/profileFragment" />-->
 <!--        <argument-->
@@ -77,4 +80,8 @@
             android:name="email"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/devsFragment"
+        android:name="com.example.inkAlankar.DevsFragment"
+        android:label="DevsFragment" />
 </navigation>

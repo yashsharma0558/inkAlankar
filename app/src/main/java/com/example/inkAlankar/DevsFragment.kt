@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
-import com.example.inkAlankar.databinding.FragmentHomeBinding
+import com.example.inkAlankar.databinding.FragmentDevsBinding
 
-class HomeFragment : Fragment() {
-    private var _binding: FragmentHomeBinding? = null
+class DevsFragment : Fragment() {
+    private var _binding: FragmentDevsBinding? = null
 
     private val binding get() = _binding!!
 
@@ -19,19 +19,12 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentDevsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.button5.setOnClickListener {
-            val bundle  = Bundle()
-            Navigation.findNavController(binding.root).navigate(R.id.action_homeFragment_to_loginFragment2, bundle)
-        }
 
-        binding.textView16.setOnClickListener{
-            Navigation.findNavController(binding.root).navigate(R.id.action_homeFragment_to_devsFragment)
-        }
     }
 
     override fun onDestroyView() {

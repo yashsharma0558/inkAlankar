@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
@@ -136,7 +137,6 @@ class GameFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         //reset canvas
         binding.button4.setOnClickListener {
             resetCanvas()
@@ -189,6 +189,9 @@ class GameFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
         binding.overlayBackground.visibility = View.VISIBLE
         // Disable user interactions if needed
+        binding.textView12.setTextColor(Color.GRAY)
+        binding.button4.setTextColor(Color.GRAY)
+        binding.button3.setTextColor(Color.GRAY)
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
@@ -196,6 +199,9 @@ class GameFragment : Fragment() {
     private fun hideOverlay() {
         binding.progressBar.visibility = View.GONE
         binding.overlayBackground.visibility = View.GONE
+        binding.textView12.setTextColor(Color.WHITE)
+        binding.button4.setTextColor(Color.WHITE)
+        binding.button3.setTextColor(Color.WHITE)
         activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         Toast.makeText(context, "Successfully Submitted!", Toast.LENGTH_SHORT)
             .show()

@@ -4,6 +4,8 @@
     <style name="Base.Theme.InkAlankar" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="android:forceDarkAllowed">false</item>
+        <item name="android:statusBarColor">@color/app_black</item>
+
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 </resources>

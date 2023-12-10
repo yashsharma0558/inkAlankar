@@ -231,6 +231,10 @@ class GameFragment : Fragment() {
                 Toast.makeText(context, "Draw something dum dum", Toast.LENGTH_SHORT).show()
             } else {
                 if (binding.button3.text.equals("Submit")) {
+                    activity?.window?.setFlags(
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                    )
                     saveBitmapInList()
                     showOverlay()
                     val reference = Firebase.database.reference.child("acc")
@@ -247,6 +251,7 @@ class GameFragment : Fragment() {
                                 count++
                             }
                             binding.progressBar.setProgress(count, true)
+                            binding.progressText.text = "${count}/${binding.progressBar.max}"
                             if (count == 79) {
                                 hideOverlay()
                             }
@@ -268,20 +273,17 @@ class GameFragment : Fragment() {
     }
 
     private fun showOverlay() {
-        binding.progressBar.visibility = View.VISIBLE
+        binding.progressLinearLayout.visibility = View.VISIBLE
         binding.overlayBackground.visibility = View.VISIBLE
         // Disable user interactions if needed
-        activity?.window?.setFlags(
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-        )
+
         binding.textView12.setTextColor(Color.GRAY)
         binding.button4.setTextColor(Color.GRAY)
         binding.button3.setTextColor(Color.GRAY)
     }
 
     private fun hideOverlay() {
-        binding.progressBar.visibility = View.GONE
+        binding.progressLinearLayout.visibility = View.GONE
         binding.overlayBackground.visibility = View.GONE
         binding.textView12.setTextColor(Color.WHITE)
         binding.button4.setTextColor(Color.WHITE)

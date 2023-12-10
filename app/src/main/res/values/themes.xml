@@ -2,9 +2,13 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.InkAlankar" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
+        <item name="android:statusBarColor">@color/app_black</item>
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
 
-    <style name="Theme.InkAlankar" parent="Base.Theme.InkAlankar" />
+    <style name="Theme.InkAlankar" parent="Base.Theme.InkAlankar" >
+        <item name="android:statusBarColor">@color/app_black</item>
+
+    </style>
 </resources>

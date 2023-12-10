@@ -37,19 +37,56 @@
 
     </RelativeLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="201dp"
-        android:layout_height="32dp"
-        android:indeterminate="false"
-        android:max="79"
+    <LinearLayout
+        android:id="@+id/progressLinearLayout"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/curved_rectangle"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="20dp"
+            android:text="Warning! Do not touch the screen! We are processing your data"
+            android:textColor="@color/white"/>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:backgroundTint="@color/black"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:background="@color/white">
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_gravity="center"
+                    android:layout_width="201dp"
+                    tools:progress="25"
+                    android:progressBackgroundTint="#eedd82"
+                    android:progressTint="@color/white"
+                    android:layout_height="32dp"
+                    android:indeterminate="false"
+                    android:max="79" />
+                <TextView
+                    android:id="@+id/progressText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    tools:text="0/80"/>
+
+            </LinearLayout>
+
+    </LinearLayout>
 
 
     <TextView

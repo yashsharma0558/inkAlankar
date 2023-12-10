@@ -96,14 +96,15 @@
         android:id="@+id/imageView"
         android:layout_width="69dp"
         android:layout_height="58dp"
+        android:scaleType="centerCrop"
         android:layout_marginStart="166dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="167dp"
+        tools:src="@drawable/draw_1"
         android:importantForAccessibility="no"
         app:layout_constraintEnd_toEndOf="@+id/textView12"
         app:layout_constraintStart_toStartOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/textView12"
-        tools:src="@tools:sample/avatars" />
+        app:layout_constraintTop_toBottomOf="@+id/textView12"/>
 
     <TextView
         android:id="@+id/textView13"

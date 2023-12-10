@@ -2,17 +2,29 @@ package com.example.inkAlankar
 
 import android.R
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Environment
+import android.provider.ContactsContract.Data
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
+import com.example.inkAlankar.DataSource
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.inkAlankar.databinding.FragmentGameBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
+import java.io.OutputStream
 
 
 class GameFragment : Fragment() {
@@ -186,7 +198,6 @@ class GameFragment : Fragment() {
     )
     private var counter: Int = 0
     private lateinit var path: String
-    private lateinit var list: IntArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         arguments?.let {
@@ -206,10 +217,6 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
-//        for (i in 0 until list.length()) {
-//            val id = list.getResourceId(i, -1)
-//        }
         //reset canvas
         binding.button4.setOnClickListener {
             resetCanvas()
@@ -268,11 +275,17 @@ class GameFragment : Fragment() {
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
         )
+        binding.textView12.setTextColor(Color.GRAY)
+        binding.button4.setTextColor(Color.GRAY)
+        binding.button3.setTextColor(Color.GRAY)
     }
 
     private fun hideOverlay() {
         binding.progressBar.visibility = View.GONE
         binding.overlayBackground.visibility = View.GONE
+        binding.textView12.setTextColor(Color.WHITE)
+        binding.button4.setTextColor(Color.WHITE)
+        binding.button3.setTextColor(Color.WHITE)
         activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         Toast.makeText(context, "Successfully Submitted!", Toast.LENGTH_SHORT)
             .show()

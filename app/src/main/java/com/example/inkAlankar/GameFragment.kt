@@ -1,30 +1,18 @@
 package com.example.inkAlankar
 
-import android.R
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.net.Uri
-import android.os.AsyncTask
 import android.os.Bundle
-import android.os.Environment
-import android.provider.ContactsContract.Data
-import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
-import com.example.inkAlankar.DataSource
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.inkAlankar.databinding.FragmentGameBinding
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
-import java.io.OutputStream
 
 
 class GameFragment : Fragment() {
@@ -111,8 +99,7 @@ class GameFragment : Fragment() {
         com.example.inkAlankar.R.drawable.draw_76,
         com.example.inkAlankar.R.drawable.draw_77,
         com.example.inkAlankar.R.drawable.draw_78,
-        com.example.inkAlankar.R.drawable.draw_79,
-        com.example.inkAlankar.R.drawable.background
+        com.example.inkAlankar.R.drawable.draw_79
     )
     private val valuesList = mutableListOf(
         "क (ka)",
@@ -148,7 +135,6 @@ class GameFragment : Fragment() {
         "ष (ṣa)",
         "स (sa)",
         "ह (ha)",
-        "ष (ṣa)",
         "त्र (tra)",
         "क्‍ (adha k)",
         "ख्‍ (adha kha)",
@@ -324,7 +310,7 @@ class GameFragment : Fragment() {
     }
 
     companion object {
-        const val COUNT = 80
+        const val COUNT = 79
     }
 
 

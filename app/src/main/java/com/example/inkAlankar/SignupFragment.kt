@@ -18,7 +18,7 @@ import com.example.inkAlankar.DataSource
 class SignupFragment : Fragment() {
     private var _binding: FragmentSignupBinding? = null
     private lateinit var reference: DatabaseReference
-    private lateinit var map: Map<String, String>
+    private lateinit var map: Map<String, Any>
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -42,7 +42,8 @@ class SignupFragment : Fragment() {
                     "branch" to binding.textView4.text.toString(),
                     "year" to binding.textView5.text.toString(),
                     "password" to binding.textView6.text.toString(),
-                    "email" to binding.textView7.text.toString().replace('.', ',')
+                    "email" to binding.textView7.text.toString().replace('.', ','),
+                    "contributions" to 0
                 )
                 val isInserted = DataSource(reference).insertDataIntoDatabase(map)
                 if(isInserted){

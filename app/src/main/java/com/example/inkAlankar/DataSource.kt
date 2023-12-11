@@ -13,8 +13,8 @@ import com.google.firebase.storage.storage
 import java.io.ByteArrayOutputStream
 
 class DataSource(private val reference: DatabaseReference) {
-    fun insertDataIntoDatabase(map: Map<String, String>): Boolean {
-        reference.child(map.getValue("email")).setValue(map)
+    fun insertDataIntoDatabase(map: Map<String, Any>): Boolean {
+        reference.child(map.getValue("email").toString()).setValue(map)
         return true
     }
 
